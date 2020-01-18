@@ -5,7 +5,7 @@ package Kakuro::RowDef;
 # This stores a user-oriented description of a row of the task.
 #
 
-use strict;
+use Modern::Perl '2018';
 use integer;
 
 use Carp;

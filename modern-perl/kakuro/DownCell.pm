@@ -3,7 +3,7 @@ package Kakuro::DownCell;
 
 @ISA = qw(Kakuro::Cell);
 
-use strict;
+use Modern::Perl '2018';
 use integer;
 
 use Carp;

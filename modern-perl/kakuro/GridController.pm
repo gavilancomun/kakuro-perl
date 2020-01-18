@@ -1,7 +1,7 @@
 
 package Kakuro::GridController;
 
-use strict;
+use Modern::Perl '2018';
 use integer;
 
 use Carp;

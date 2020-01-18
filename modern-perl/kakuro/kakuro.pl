@@ -5,7 +5,7 @@
 
 package Kakuro;
 
-use strict;
+use Modern::Perl '2018';
 
 use vars qw($opt_q $opt_v);
 

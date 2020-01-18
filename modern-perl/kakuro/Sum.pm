@@ -1,7 +1,11 @@
 
 package Kakuro::Sum;
 
-use strict;
+use Modern::Perl '2018';
+
+use feature qw(signatures);
+no warnings qw(experimental::signatures);
+
 use integer;
 
 use Carp;
@@ -16,7 +20,7 @@ use Kakuro::EmptyCell;
 
 my (%possibles, %counts, @candidate);
 
-sub new { my ($proto, $total) = @_;
+sub new($proto, $total) {
   my ($self, $class);
 
   $class = ref($proto) || $proto;
@@ -25,25 +29,25 @@ sub new { my ($proto, $total) = @_;
   return $self;
 }
 
-sub add { my ($self, $value) = @_;
+sub add($self, $value) {
   push @{$self->{_cells}}, $value;
 }
 
-sub get { my ($self, $pos) = @_;
+sub get($self, $pos) {
   return $self->{_cells}[$pos];
 }
 
-sub length { my ($self) = @_;
+sub length($self) {
   return scalar @{$self->{_cells}};
 }
 
-sub addPossible { my ($pos, $value) = @_;
+sub addPossible($pos, $value) {
   $possibles{$pos}{$value} = 1;
 #  print "    Setting poss $value\n";
   return 1;
 }
 
-sub handleCandidate { my ($value) = @_;
+sub handleCandidate($value) {
   my (%done, $v, $pos, @trial);
 
   @trial = @candidate;
@@ -62,7 +66,7 @@ sub handleCandidate { my ($value) = @_;
   return 1;
 }
 
-sub solvePart { my ($self, $total, $pos) = @_;
+sub solvePart($self, $total, $pos) {
   my ($result, $OneResult, $cell, $value);
 
 #  print "  pos $pos total $total\n";
@@ -88,7 +92,7 @@ sub solvePart { my ($self, $total, $pos) = @_;
   return $result;
 }
 
-sub applyResult { my ($self) = @_;
+sub applyResult($self) {
   my ($cell, $value, $pos, $result);
 
   $result = 0;
@@ -104,7 +108,7 @@ sub applyResult { my ($self) = @_;
   return $result;
 }
 
-sub solve { my ($self) = @_;
+sub solve($self) {
   %possibles = ();
   $self->solvePart($self->{_total}, 0);
   return $self->applyResult();
