@@ -2,13 +2,16 @@
 package Kakuro::Cell;
 
 use Modern::Perl '2018';
+use feature qw(signatures);
+no warnings qw(experimental::signatures);
+
 use integer;
 
 use Carp;
 
 use Data::Dumper;
 
-sub new { my ($proto) = @_;
+sub new($proto) {
   my ($self, $class);
 
   $class = ref($proto) || $proto;
@@ -17,19 +20,19 @@ sub new { my ($proto) = @_;
   return $self;
 }
 
-sub draw { my ($self) = @_;
+sub draw($self) {
   print " ERROR ";
 }
 
-sub isAcross { my ($self) = @_;
+sub isAcross($self) {
   return 0;
 }
 
-sub isDown { my ($self) = @_;
+sub isDown($self) {
   return 0;
 }
 
-sub isEmpty { my ($self) = @_;
+sub isEmpty($self) {
   return 0;
 }
 

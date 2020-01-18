@@ -2,7 +2,6 @@
 package Kakuro::Sum;
 
 use Modern::Perl '2018';
-
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
 

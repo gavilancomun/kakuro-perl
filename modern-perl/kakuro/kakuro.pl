@@ -6,6 +6,8 @@
 package Kakuro;
 
 use Modern::Perl '2018';
+use feature qw(signatures);
+no warnings qw(experimental::signatures);
 
 use vars qw($opt_q $opt_v);
 

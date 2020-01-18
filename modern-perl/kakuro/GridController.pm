@@ -2,6 +2,9 @@
 package Kakuro::GridController;
 
 use Modern::Perl '2018';
+use feature qw(signatures);
+no warnings qw(experimental::signatures);
+
 use integer;
 
 use Carp;

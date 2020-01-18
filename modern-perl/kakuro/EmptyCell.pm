@@ -4,6 +4,9 @@ package Kakuro::EmptyCell;
 @ISA = qw(Kakuro::Cell);
 
 use Modern::Perl '2018';
+use feature qw(signatures);
+no warnings qw(experimental::signatures);
+
 use integer;
 
 use Carp;
