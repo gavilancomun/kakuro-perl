@@ -1,8 +1,6 @@
 
 package Kakuro::AcrossCell;
 
-@ISA = qw(Kakuro::Cell);
-
 use Modern::Perl '2018';
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
@@ -13,29 +11,21 @@ use Carp;
 
 use Data::Dumper;
 
-use Kakuro::Cell;
+use parent 'Kakuro::Cell';
+use Class::Tiny qw (_across);
 
-sub new { my ($proto, $n) = @_;
-  my ($self, $class);
-
-  $class = ref($proto) || $proto;
-  $self = { _across => $n };
-  bless($self, $class);
-  return $self;
-}
-
-sub draw { my ($self) = @_;
+sub draw($self) {
   my ($n);
 
   $n = sprintf("%2d", $self->{_across});
   print "    -\\$n   ";
 }
 
-sub isAcross { my ($self) = @_;
+sub isAcross($self) {
   return 1;
 }
 
-sub getAcrossTotal { my ($self) = @_;
+sub getAcrossTotal($self) {
   return $self->{_across};
 }
 

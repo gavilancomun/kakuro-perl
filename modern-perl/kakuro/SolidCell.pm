@@ -1,8 +1,6 @@
 
 package Kakuro::SolidCell;
 
-@ISA = qw(Kakuro::Cell);
-
 use Modern::Perl '2018';
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
@@ -13,7 +11,8 @@ use Carp;
 
 use Data::Dumper;
 
-use Kakuro::Cell;
+use parent 'Kakuro::Cell';
+use Class::Tiny;
 
 sub draw($self) {
   print " XXXXXXXXX ";

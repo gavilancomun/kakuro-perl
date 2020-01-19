@@ -48,11 +48,11 @@ sub addEmpty { my ($self, $n) = @_;
 }
 
 sub addDown { my ($self, $d) = @_;
-  $self->add(Kakuro::DownCell->new($d));
+  $self->add(Kakuro::DownCell->new(_down => $d));
 }
 
 sub addAcross { my ($self, $across) = @_;
-  $self->add(Kakuro::AcrossCell->new($across));
+  $self->add(Kakuro::AcrossCell->new(_across => $across));
 }
 
 sub addDownAcross { my ($self, $down, $across) = @_;

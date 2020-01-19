@@ -11,14 +11,7 @@ use Carp;
 
 use Data::Dumper;
 
-sub new($proto) {
-  my ($self, $class);
-
-  $class = ref($proto) || $proto;
-  $self = {};
-  bless($self, $class);
-  return $self;
-}
+use Class::Tiny;
 
 sub draw($self) {
   print " ERROR ";

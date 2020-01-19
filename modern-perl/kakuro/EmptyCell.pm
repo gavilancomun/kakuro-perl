@@ -7,17 +7,13 @@ use Modern::Perl '2018';
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
 
-use integer;
-
-use Carp;
-
 use Data::Dumper;
 
 use Kakuro::Cell;
 
 my ($impossible, $possible) = (1, 2);
 
-sub new { my ($proto) = @_;
+sub new($proto) {
   my ($self, $class);
 
   $class = ref($proto) || $proto;
@@ -27,11 +23,11 @@ sub new { my ($proto) = @_;
   return $self;
 }
 
-sub isEmpty { my ($self) = @_;
+sub isEmpty($self) {
   return 1;
 }
 
-sub draw { my ($self) = @_;
+sub draw($self) {
   my ($i);
 
   print " ";
@@ -53,11 +49,11 @@ sub draw { my ($self) = @_;
   print " ";
 }
 
-sub isPossible { my ($self, $value) = @_;
+sub isPossible($self, $value) {
   return defined $self->{_values}{$value};
 }
 
-sub setImpossible { my ($self, $value) = @_;
+sub setImpossible($self, $value) {
 #  print "  set imposs $value\n";
   if (not defined $self->{_values}{$value}) {
     return 0;
@@ -66,7 +62,7 @@ sub setImpossible { my ($self, $value) = @_;
   return 1;
 }
 
-sub reset { my ($self) = @_;
+sub reset($self) {
   my ($i);
 
   foreach $i (1 .. 9) {
@@ -74,7 +70,7 @@ sub reset { my ($self) = @_;
   }
 }
 
-sub getValues { my ($self) = @_;
+sub getValues($self) {
   return keys %{$self->{_values}};
 }
 
