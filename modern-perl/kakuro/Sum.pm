@@ -10,7 +10,7 @@ use Kakuro::AcrossCell;
 use Kakuro::DownAcrossCell;
 use Kakuro::EmptyCell;
 
-use Class::Tiny qw/_total/;
+use Class::Tiny qw(_total);
 
 my (%possibles, %counts, @candidate);
 
