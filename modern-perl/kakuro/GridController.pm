@@ -84,7 +84,7 @@ sub createAcrossSums($self) {
     foreach $c (1 .. $self->width()) {
       $cell = $self->get($r, $c);
       if ($cell->isAcross) {
-        $sum = Kakuro::Sum->new($cell->_across);
+        $sum = Kakuro::Sum->new(_total => $cell->_across);
         $pos = $c + 1;
         $blank = $self->get($r, $pos);
         while (defined($blank) and $blank->isEmpty()) {
@@ -105,7 +105,7 @@ sub createDownSums($self) {
     foreach $r (1 .. $self->height()) {
       $cell = $self->get($r, $c);
       if ($cell->isDown) {
-        $sum = Kakuro::Sum->new($cell->_down);
+        $sum = Kakuro::Sum->new(_total => $cell->_down);
         $pos = $r + 1;
         $blank = $self->get($pos, $c);
         while (defined($blank) and $blank->isEmpty()) {

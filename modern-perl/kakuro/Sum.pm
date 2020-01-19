@@ -1,15 +1,8 @@
-
 package Kakuro::Sum;
 
 use Modern::Perl '2018';
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
-
-use integer;
-
-use Carp;
-
-use Data::Dumper;
 
 use Kakuro::SolidCell;
 use Kakuro::DownCell;
@@ -17,16 +10,9 @@ use Kakuro::AcrossCell;
 use Kakuro::DownAcrossCell;
 use Kakuro::EmptyCell;
 
+use Class::Tiny qw/_total/;
+
 my (%possibles, %counts, @candidate);
-
-sub new($proto, $total) {
-  my ($self, $class);
-
-  $class = ref($proto) || $proto;
-  $self = { _total => $total };
-  bless($self, $class);
-  return $self;
-}
 
 sub add($self, $value) {
   push @{$self->{_cells}}, $value;
