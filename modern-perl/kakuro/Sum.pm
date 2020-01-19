@@ -10,20 +10,20 @@ use Kakuro::AcrossCell;
 use Kakuro::DownAcrossCell;
 use Kakuro::EmptyCell;
 
-use Class::Tiny qw(_total);
+use Class::Tiny qw(total cells);
 
 my (%possibles, %counts, @candidate);
 
 sub add($self, $value) {
-  push @{$self->{_cells}}, $value;
+  push @{$self->{cells}}, $value;
 }
 
 sub get($self, $pos) {
-  return $self->{_cells}[$pos];
+  return $self->{cells}[$pos];
 }
 
 sub length($self) {
-  return scalar @{$self->{_cells}};
+  return scalar @{$self->{cells}};
 }
 
 sub addPossible($pos, $value) {
@@ -82,7 +82,7 @@ sub applyResult($self) {
 
   $result = 0;
   $pos = 0;
-  foreach $cell (@{$self->{_cells}}) {
+  foreach $cell (@{$self->{cells}}) {
     foreach $value ($cell->getValues()) {
       if (not defined $possibles{$pos}{$value}) {
         $result += $cell->setImpossible($value);
@@ -95,7 +95,7 @@ sub applyResult($self) {
 
 sub solve($self) {
   %possibles = ();
-  $self->solvePart($self->{_total}, 0);
+  $self->solvePart($self->{total}, 0);
   return $self->applyResult();
 }
 

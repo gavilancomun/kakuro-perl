@@ -11,25 +11,25 @@ use Kakuro::RowDef;
 
 my ($CurrentRowDef);
 
-use Class::Tiny qw(), {
+use Class::Tiny qw(grid), {
   rows => [],
   sums => []
 };
 
 sub width($self) {
-  return scalar $self->{_rows}[0]->length();
+  return scalar $self->{rows}[0]->length();
 }
 
 sub height($self) {
-  return scalar @{$self->{_rows}};
+  return scalar @{$self->{rows}};
 }
 
 sub get($self, $i, $j) {
-  return $self->{_grid}{$i}{$j};
+  return $self->{grid}{$i}{$j};
 }
 
 sub set($self, $i, $j, $value) {
-  $self->{_grid}{$i}{$j} = $value;
+  $self->{grid}{$i}{$j} = $value;
 }
 
 sub addSum($self, $sum) {
@@ -38,13 +38,13 @@ sub addSum($self, $sum) {
 
 sub newRowDef($self) {
   $CurrentRowDef = Kakuro::RowDef->new();
-  push @{$self->{_rows}}, $CurrentRowDef;
+  push @{$self->{rows}}, $CurrentRowDef;
   return $CurrentRowDef;
 }
 
 sub draw($self) {
   print "\n";
-  foreach my $r (@{$self->{_rows}}) {
+  foreach my $r (@{$self->{rows}}) {
     $r->draw();
   }
 }
@@ -76,7 +76,7 @@ sub createAcrossSums($self) {
     foreach my $c (1 .. $self->width()) {
       $cell = $self->get($r, $c);
       if ($cell->isAcross) {
-        $sum = Kakuro::Sum->new(_total => $cell->_across);
+        $sum = Kakuro::Sum->new(total => $cell->_across);
         $pos = $c + 1;
         $blank = $self->get($r, $pos);
         while (defined($blank) and $blank->isEmpty()) {
@@ -97,7 +97,7 @@ sub createDownSums($self) {
     foreach my $r (1 .. $self->height()) {
       $cell = $self->get($r, $c);
       if ($cell->isDown) {
-        $sum = Kakuro::Sum->new(_total => $cell->_down);
+        $sum = Kakuro::Sum->new(total => $cell->_down);
         $pos = $r + 1;
         $blank = $self->get($pos, $c);
         while (defined($blank) and $blank->isEmpty()) {
@@ -120,7 +120,7 @@ sub parseDef($self) {
   my ($r);
 
   $r = 1;
-  foreach my $row (@{$self->{_rows}}) {
+  foreach my $row (@{$self->{rows}}) {
     foreach my $c (1 .. $row->length()) {
       $self->set($r, $c, $row->get($c));
     }
