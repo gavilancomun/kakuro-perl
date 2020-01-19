@@ -1,13 +1,8 @@
-
 package Kakuro::GridController;
 
 use Modern::Perl '2018';
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
-
-use integer;
-
-use Carp;
 
 use Data::Dumper;
 
@@ -16,7 +11,7 @@ use Kakuro::RowDef;
 
 my ($CurrentRowDef);
 
-sub new { my ($proto) = @_;
+sub new($proto) {
   my ($self, $class);
 
   $class = ref($proto) || $proto;
@@ -27,34 +22,33 @@ sub new { my ($proto) = @_;
   return $self;
 }
 
-sub width { my ($self) = @_;
+sub width($self) {
   return scalar $self->{_rows}[0]->length();
 }
 
-sub height { my ($self) = @_;
+sub height($self) {
   return scalar @{$self->{_rows}};
 }
 
-sub get { my ($self, $i, $j) = @_;
+sub get($self, $i, $j) {
   return $self->{_grid}{$i}{$j};
 }
 
-sub set { my ($self, $i, $j, $value) = @_;
-#  print "$i $j ", Dumper($value);
+sub set($self, $i, $j, $value) {
   $self->{_grid}{$i}{$j} = $value;
 }
 
-sub addSum { my ($self, $sum) = @_;
+sub addSum($self, $sum) {
   push @{$self->{_sums}}, $sum;
 }
 
-sub newRowDef { my ($self) = @_;
-  $CurrentRowDef = Kakuro::RowDef->new(1 + scalar @{$self->{_rows}});
+sub newRowDef($self) {
+  $CurrentRowDef = Kakuro::RowDef->new();
   push @{$self->{_rows}}, $CurrentRowDef;
   return $CurrentRowDef;
 }
 
-sub draw { my ($self) = @_;
+sub draw($self) {
   my ($r);
 
   print "\n";
@@ -63,27 +57,27 @@ sub draw { my ($self) = @_;
   }
 }
 
-sub addSolid { my ($self) = @_;
+sub addSolid($self) {
   $CurrentRowDef->addSolid();
 }
 
-sub addEmpty { my ($self, $n) = @_;
+sub addEmpty($self, $n) {
   $CurrentRowDef->addEmpty($n);
 }
 
-sub addDown { my ($self, $d) = @_;
+sub addDown($self, $d) {
   $CurrentRowDef->addDown($d);
 }
 
-sub addAcross { my ($self, $across) = @_;
+sub addAcross($self, $across) {
   $CurrentRowDef->addAcross($across);
 }
 
-sub addDownAcross { my ($self, $down, $across) = @_;
+sub addDownAcross($self, $down, $across) {
   $CurrentRowDef->addDownAcross($down, $across);
 }
 
-sub createAcrossSums { my ($self) = @_;
+sub createAcrossSums($self) {
   my ($r, $c, $cell, $sum, $pos, $blank);
 
   foreach $r (1 .. $self->height()) {
@@ -104,7 +98,7 @@ sub createAcrossSums { my ($self) = @_;
   }
 }
 
-sub createDownSums { my ($self) = @_;
+sub createDownSums($self) {
   my ($r, $c, $cell, $sum, $pos, $blank);
 
   foreach $c (1 .. $self->width()) {
@@ -125,12 +119,12 @@ sub createDownSums { my ($self) = @_;
   }
 }
 
-sub createSums { my ($self) = @_;
+sub createSums($self) {
   $self->createAcrossSums();
   $self->createDownSums();
 }
 
-sub parseDef { my ($self) = @_;
+sub parseDef($self) {
   my ($r, $c, $row);
 
   $r = 1;
@@ -143,7 +137,7 @@ sub parseDef { my ($self) = @_;
   $self->createSums();
 }
 
-sub OneScan { my ($self) = @_;
+sub OneScan($self) {
   my ($result, $sum);
 
   $result = 0;
@@ -153,7 +147,7 @@ sub OneScan { my ($self) = @_;
   return $result;
 }
 
-sub solve { my ($self) = @_;
+sub solve($self) {
   my ($result);
 
   $self->parseDef();

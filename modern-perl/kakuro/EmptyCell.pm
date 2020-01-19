@@ -1,4 +1,3 @@
-
 package Kakuro::EmptyCell;
 
 @ISA = qw(Kakuro::Cell);

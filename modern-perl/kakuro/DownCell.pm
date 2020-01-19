@@ -1,4 +1,3 @@
-
 package Kakuro::DownCell;
 
 use Modern::Perl '2018';
@@ -7,10 +6,6 @@ no warnings qw(experimental::signatures);
 
 use parent 'Kakuro::Cell';
 use Class::Tiny qw (_down);
-
-sub getDownTotal($self) {
-  return $self->{_down};
-}
 
 sub isDown($self) {
   return 1;

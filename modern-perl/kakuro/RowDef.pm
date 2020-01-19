@@ -1,4 +1,3 @@
-
 package Kakuro::RowDef;
 
 #
@@ -9,19 +8,13 @@ use Modern::Perl '2018';
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
 
-use integer;
-
-use Carp;
-
-use Data::Dumper;
-
 use Kakuro::SolidCell;
 use Kakuro::DownCell;
 use Kakuro::AcrossCell;
 use Kakuro::DownAcrossCell;
 use Kakuro::EmptyCell;
 
-sub new { my ($proto) = @_;
+sub new($proto) {
   my ($self, $class);
 
   $class = ref($proto) || $proto;
@@ -30,15 +23,15 @@ sub new { my ($proto) = @_;
   return $self;
 }
 
-sub length { my ($self) = @_;
+sub length($self) {
   return scalar @{$self->{_cells}};
 }
 
-sub addSolid { my ($self) = @_;
+sub addSolid($self) {
   $self->add(Kakuro::SolidCell->new());
 }
 
-sub addEmpty { my ($self, $n) = @_;
+sub addEmpty($self, $n) {
   my ($count);
 
   $count = defined $n ? $n : 1;
@@ -47,19 +40,19 @@ sub addEmpty { my ($self, $n) = @_;
   }
 }
 
-sub addDown { my ($self, $d) = @_;
+sub addDown($self, $d) {
   $self->add(Kakuro::DownCell->new(_down => $d));
 }
 
-sub addAcross { my ($self, $across) = @_;
+sub addAcross($self, $across) {
   $self->add(Kakuro::AcrossCell->new(_across => $across));
 }
 
-sub addDownAcross { my ($self, $down, $across) = @_;
+sub addDownAcross($self, $down, $across) {
   $self->add(Kakuro::DownAcrossCell->new(_down => $down, _across => $across));
 }
 
-sub draw { my ($self) = @_;
+sub draw($self) {
   my ($c);
 
   foreach $c (@{$self->{_cells}}) {
@@ -68,14 +61,12 @@ sub draw { my ($self) = @_;
   print "\n";
 }
 
-sub get { my ($self, $n) = @_;
+sub get($self, $n) {
   return $self->{_cells}[$n - 1];
 }
 
-sub add { my ($self, $cell) = @_;
+sub add($self, $cell) {
   push @{$self->{_cells}}, $cell;
 }
-
-
 
 1;
