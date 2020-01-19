@@ -11,16 +11,10 @@ use Kakuro::RowDef;
 
 my ($CurrentRowDef);
 
-sub new($proto) {
-  my ($self, $class);
-
-  $class = ref($proto) || $proto;
-  $self = { _rows => [],
-            _sums => []
-  };
-  bless($self, $class);
-  return $self;
-}
+use Class::Tiny qw(), {
+  rows => [],
+  sums => []
+};
 
 sub width($self) {
   return scalar $self->{_rows}[0]->length();
@@ -39,7 +33,7 @@ sub set($self, $i, $j, $value) {
 }
 
 sub addSum($self, $sum) {
-  push @{$self->{_sums}}, $sum;
+  push @{$self->{sums}}, $sum;
 }
 
 sub newRowDef($self) {
@@ -49,10 +43,8 @@ sub newRowDef($self) {
 }
 
 sub draw($self) {
-  my ($r);
-
   print "\n";
-  foreach $r (@{$self->{_rows}}) {
+  foreach my $r (@{$self->{_rows}}) {
     $r->draw();
   }
 }
@@ -78,10 +70,10 @@ sub addDownAcross($self, $down, $across) {
 }
 
 sub createAcrossSums($self) {
-  my ($r, $c, $cell, $sum, $pos, $blank);
+  my ($cell, $sum, $pos, $blank);
 
-  foreach $r (1 .. $self->height()) {
-    foreach $c (1 .. $self->width()) {
+  foreach my $r (1 .. $self->height()) {
+    foreach my $c (1 .. $self->width()) {
       $cell = $self->get($r, $c);
       if ($cell->isAcross) {
         $sum = Kakuro::Sum->new(_total => $cell->_across);
@@ -99,10 +91,10 @@ sub createAcrossSums($self) {
 }
 
 sub createDownSums($self) {
-  my ($r, $c, $cell, $sum, $pos, $blank);
+  my ($cell, $sum, $pos, $blank);
 
-  foreach $c (1 .. $self->width()) {
-    foreach $r (1 .. $self->height()) {
+  foreach my $c (1 .. $self->width()) {
+    foreach my $r (1 .. $self->height()) {
       $cell = $self->get($r, $c);
       if ($cell->isDown) {
         $sum = Kakuro::Sum->new(_total => $cell->_down);
@@ -125,11 +117,11 @@ sub createSums($self) {
 }
 
 sub parseDef($self) {
-  my ($r, $c, $row);
+  my ($r);
 
   $r = 1;
-  foreach $row (@{$self->{_rows}}) {
-    foreach $c (1 .. $row->length()) {
+  foreach my $row (@{$self->{_rows}}) {
+    foreach my $c (1 .. $row->length()) {
       $self->set($r, $c, $row->get($c));
     }
     ++$r;
@@ -138,10 +130,10 @@ sub parseDef($self) {
 }
 
 sub OneScan($self) {
-  my ($result, $sum);
+  my ($result);
 
   $result = 0;
-  foreach $sum (@{$self->{_sums}}) {
+  foreach my $sum (@{$self->{sums}}) {
     $result += $sum->solve();
   }
   return $result;
