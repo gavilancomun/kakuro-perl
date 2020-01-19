@@ -40,12 +40,12 @@ sub draw($self) {
 
   print " ";
   if (1 == scalar $self->getValues()) {
-    foreach $i ($self->getValues()) {
+    foreach my $i ($self->getValues()) {
       print "   <", $i, ">   ";
     }
   }
   else {
-    foreach $i (1 .. 9) {
+    foreach my $i (1 .. 9) {
       if ($self->isPossible($i)) {
         print $i;
       }
