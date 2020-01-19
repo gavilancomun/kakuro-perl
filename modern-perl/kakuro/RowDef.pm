@@ -14,17 +14,12 @@ use Kakuro::AcrossCell;
 use Kakuro::DownAcrossCell;
 use Kakuro::EmptyCell;
 
-sub new($proto) {
-  my ($self, $class);
-
-  $class = ref($proto) || $proto;
-  $self = { _cells => [] };
-  bless($self, $class);
-  return $self;
-}
+use Class::Tiny qw(), {
+  cells => []
+};
 
 sub length($self) {
-  return scalar @{$self->{_cells}};
+  return scalar @{$self->{cells}};
 }
 
 sub addSolid($self) {
@@ -34,7 +29,7 @@ sub addSolid($self) {
 sub addEmpty($self, $n) {
   my ($count);
 
-  $count = defined $n ? $n : 1;
+  $count = $n // 1;
   foreach (1 .. $n) {
     $self->add(Kakuro::EmptyCell->new());
   }
@@ -53,20 +48,18 @@ sub addDownAcross($self, $down, $across) {
 }
 
 sub draw($self) {
-  my ($c);
-
-  foreach $c (@{$self->{_cells}}) {
+  foreach my $c (@{$self->{cells}}) {
     $c->draw();
   }
   print "\n";
 }
 
 sub get($self, $n) {
-  return $self->{_cells}[$n - 1];
+  return $self->{cells}[$n - 1];
 }
 
 sub add($self, $cell) {
-  push @{$self->{_cells}}, $cell;
+  push @{$self->{cells}}, $cell;
 }
 
 1;
