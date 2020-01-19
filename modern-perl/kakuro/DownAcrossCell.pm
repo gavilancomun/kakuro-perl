@@ -1,30 +1,14 @@
-
 package Kakuro::DownAcrossCell;
-
-@ISA = qw(Kakuro::Cell);
 
 use Modern::Perl '2018';
 use feature qw(signatures);
 no warnings qw(experimental::signatures);
 
-use integer;
+use parent 'Kakuro::Cell';
+use Class::Tiny qw (_across
+                    _down);
 
-use Carp;
-
-use Data::Dumper;
-
-use Kakuro::Cell;
-
-sub new { my ($proto, $down, $across) = @_;
-  my ($self, $class);
-
-  $class = ref($proto) || $proto;
-  $self = { _down => $down, _across => $across };
-  bless($self, $class);
-  return $self;
-}
-
-sub draw { my ($self) = @_;
+sub draw($self) {
   my ($n, $d);
 
   $d = sprintf("%2d", $self->{_down});
@@ -32,20 +16,11 @@ sub draw { my ($self) = @_;
   print "   $d\\$n   ";
 }
 
-sub getAcrossTotal { my ($self) = @_;
-  return $self->{_across};
-}
-
-sub getDownTotal { my ($self) = @_;
-  return $self->{_down};
-}
-
-
-sub isAcross { my ($self) = @_;
+sub isAcross($self) {
   return 1;
 }
 
-sub isDown { my ($self) = @_;
+sub isDown($self) {
   return 1;
 }
 

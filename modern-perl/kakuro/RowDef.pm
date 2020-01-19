@@ -56,7 +56,7 @@ sub addAcross { my ($self, $across) = @_;
 }
 
 sub addDownAcross { my ($self, $down, $across) = @_;
-  $self->add(Kakuro::DownAcrossCell->new($down, $across));
+  $self->add(Kakuro::DownAcrossCell->new(_down => $down, _across => $across));
 }
 
 sub draw { my ($self) = @_;
