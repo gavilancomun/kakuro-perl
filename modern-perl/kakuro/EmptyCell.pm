@@ -10,15 +10,24 @@ use Data::Dumper;
 
 use Kakuro::Cell;
 
-my ($impossible, $possible) = (1, 2);
-
 sub new($proto) {
   my ($self, $class);
 
   $class = ref($proto) || $proto;
-  $self = {};
+  $self = {
+    _values => {
+      1 => 1,
+      2 => 1,
+      3 => 1,
+      4 => 1,
+      5 => 1,
+      6 => 1,
+      7 => 1,
+      8 => 1,
+      9 => 1     
+    }
+  };
   bless($self, $class);
-  $self->reset();
   return $self;
 }
 
@@ -59,14 +68,6 @@ sub setImpossible($self, $value) {
   }
   delete $self->{_values}{$value};
   return 1;
-}
-
-sub reset($self) {
-  my ($i);
-
-  foreach $i (1 .. 9) {
-    $self->{_values}{$i} = $possible;
-  }
 }
 
 sub getValues($self) {
