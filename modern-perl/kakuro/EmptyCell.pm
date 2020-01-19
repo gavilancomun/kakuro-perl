@@ -15,7 +15,7 @@ sub new($proto) {
 
   $class = ref($proto) || $proto;
   $self = {
-    _values => {
+    values => {
       1 => 1,
       2 => 1,
       3 => 1,
@@ -58,19 +58,19 @@ sub draw($self) {
 }
 
 sub isPossible($self, $value) {
-  return $self->{_values}{$value};
+  return $self->{values}{$value};
 }
 
 sub setImpossible($self, $value) {
-  if (not $self->{_values}{$value}) {
+  if (not $self->{values}{$value}) {
     return 0;
   }
-  delete $self->{_values}{$value};
+  delete $self->{values}{$value};
   return 1;
 }
 
 sub getValues($self) {
-  return keys %{$self->{_values}};
+  return keys %{$self->{values}};
 }
 
 1;
