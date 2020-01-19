@@ -58,12 +58,12 @@ sub draw($self) {
 }
 
 sub isPossible($self, $value) {
-  return defined $self->{_values}{$value};
+  return exists $self->{_values}{$value};
 }
 
 sub setImpossible($self, $value) {
 #  print "  set imposs $value\n";
-  if (not defined $self->{_values}{$value}) {
+  if (not exists $self->{_values}{$value}) {
     return 0;
   }
   delete $self->{_values}{$value};
